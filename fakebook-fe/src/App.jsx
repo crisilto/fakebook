@@ -1,13 +1,16 @@
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.scss";
-import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-      <Footer/>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   );
 }
 

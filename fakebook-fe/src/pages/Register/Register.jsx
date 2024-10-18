@@ -1,13 +1,13 @@
 import BirthdaySelect from "./BirthdaySelect/BirthdaySelect";
 import GenderSelect from "./GenderSelect/GenderSelect";
 
-const SignUp = () => {
+const Register = () => {
   return (
-    <div className="sign-up-container">
-      <div className="sign-up-title">
+    <div className="register-container">
+      <div className="register-title">
         <h1>fakebook</h1>
       </div>
-      <div className="sign-up-form">
+      <div className="register-form">
         <h3>Create a new account</h3>
         <p>It is quick and easy.</p>
         <form action="">
@@ -24,4 +24,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;

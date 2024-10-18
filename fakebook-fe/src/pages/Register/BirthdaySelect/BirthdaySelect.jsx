@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getDays, getMonths, getYears } from "../../utils/dateUtils";
+import { getDays, getMonths, getYears } from "../../../utils/dateUtils";
 
 const BirthdaySelect = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
