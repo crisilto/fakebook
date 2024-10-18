@@ -7,7 +7,7 @@ const BirthdaySelect = () => {
   const [selectedYear, setSelectedYear] = useState("");
 
   return (
-    <div className="form-birthday-group">
+    <div className="form-group">
       <label>Birthday:</label>
       <div className="birthday-select">
         <select
