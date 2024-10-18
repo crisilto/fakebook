@@ -1,0 +1,120 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5; 
+    padding: 20px;
+  
+    .login-left {
+      flex: 1;
+      margin-right: 50px;
+      text-align: left;
+  
+      h1 {
+        color: #1877f2; 
+        font-size: 56px;
+        font-weight: bold;
+        font-family: 'Helvetica', sans-serif;
+      }
+  
+      p {
+        font-size: 24px;
+        color: #1c1e21;
+        margin-top: -10px;
+        max-width: 400px;
+        font-family: 'Helvetica', sans-serif;
+      }
+    }
+  
+    .login-right {
+      flex: 1;
+      max-width: 400px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+  
+      .login-form {
+        display: flex;
+        flex-direction: column;
+  
+        input {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 10px;
+          border: 1px solid #dddfe2;
+          border-radius: 6px;
+          font-size: 16px;
+          background-color: #f5f6f7;
+          font-family: 'Helvetica', sans-serif;
+        }
+  
+        .btn-login {
+          width: 100%;
+          padding: 12px;
+          background-color: #1877f2; 
+          color: white;
+          font-size: 18px;
+          font-weight: bold;
+          border: none;
+          border-radius: 6px;
+          margin-top: 10px;
+          cursor: pointer;
+          font-family: 'Helvetica', sans-serif;
+        }
+  
+        .btn-login:hover {
+          background-color: #165fd4; 
+        }
+  
+        .btn-create-account {
+          width: 100%;
+          padding: 12px;
+          background-color: #42b72a; 
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+          border: none;
+          border-radius: 6px;
+          margin-top: 20px;
+          cursor: pointer;
+          font-family: 'Helvetica', sans-serif;
+        }
+  
+        .btn-create-account:hover {
+          background-color: #36a420; 
+        }
+  
+        a {
+          color: #1877f2;
+          font-size: 14px;
+          margin-top: 10px;
+          text-align: center;
+          display: block;
+          font-family: 'Helvetica', sans-serif;
+        }
+  
+        a:hover {
+          text-decoration: underline;
+        }
+      }
+  
+      p {
+        margin-top: 20px;
+        font-size: 14px;
+        text-align: center;
+        color: #1c1e21;
+        font-family: 'Helvetica', sans-serif;
+  
+        a {
+          color: #1877f2;
+          font-weight: bold;
+        }
+  
+        a:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
