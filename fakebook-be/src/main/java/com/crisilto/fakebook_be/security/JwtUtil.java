@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwUtil {
+public class JwtUtil {
 
     private String SECRET_KEY = "secret"; //The key used to sign the JWT
 
