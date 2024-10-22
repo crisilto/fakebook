@@ -1,7 +1,7 @@
 package com.crisilto.fakebook_be.controllers;
 
 import com.crisilto.fakebook_be.requests.LoginRequest;
-import com.crisilto.fakebook_be.security.JwUtil;
+import com.crisilto.fakebook_be.security.JwtUtil;
 import com.crisilto.fakebook_be.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
-    private JwUtil jwUtil;
+    private JwtUtil jwtUtil;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -28,7 +28,7 @@ public class AuthController {
 
         if (isAuthenticated) {
             UserDetails userDetails = userService.loadUserByUsername(loginRequest.getEmail());
-            String jwt = jwUtil.generateToken(userDetails);
+            String jwt = jwtUtil.generateToken(userDetails);
 
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
         } else {
