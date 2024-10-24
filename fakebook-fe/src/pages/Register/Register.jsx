@@ -1,7 +1,47 @@
+import { useState } from "react";
 import BirthdaySelect from "./BirthdaySelect/BirthdaySelect";
+import ContactInput from "./ContactInput/ContactInput";
 import GenderSelect from "./GenderSelect/GenderSelect";
 
 const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [gender, setGender] = useState("");
+  const [mobileOrEmail, setMobileOrEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      firstName,
+      lastName,
+      birthday,
+      gender,
+      mobileOrEmail,
+      password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (response.ok) {
+        console.log("User registered successfull");
+      } else {
+        console.error("Error registering user");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+
   return (
     <div className="register-container">
       <div className="register-title">
@@ -10,13 +50,52 @@ const Register = () => {
       <div className="register-form">
         <h3>Create a new account</h3>
         <p>It is quick and easy.</p>
-        <form action="">
-          <input type="text" placeholder="First name" required />
-          <input type="text" placeholder="Last name" required />
-          <BirthdaySelect />
-          <GenderSelect />
-          <input type="password" placeholder="New password" required />
-          <button type="submit">Sign Up</button>
+        <form className="register-form" onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="First name"
+            required
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last name"
+            required
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <BirthdaySelect onSelect={setBirthday} />
+          <GenderSelect onSelect={setGender} />
+          <ContactInput setMobileOrEmail={setMobileOrEmail} />
+          <input
+            type="password"
+            placeholder="New password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <div className="additional-info">
+            <p>
+              People who use our service may have uploaded your contact
+              information to Facebook.
+              <a href="#">Learn more.</a>
+            </p>
+            <p>
+              By clicking Sign Up, you agree to our
+              <a href="#"> Terms</a>. Learn how we collect, use, and share your
+              data in our
+              <a href="#"> Privacy Policy</a> and how we use cookies and similar
+              technology in our
+              <a href="#"> Cookies Policy</a>. You may receive SMS Notifications
+              from us and can opt out any time.
+            </p>
+          </div>
+
+          <button type="submit" className="btn-sign-up">
+            Sign Up
+          </button>
           <a href="#">Already have an account?</a>
         </form>
       </div>
