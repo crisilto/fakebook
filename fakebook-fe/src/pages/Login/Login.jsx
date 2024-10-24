@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "./../../components/Footer/Footer";
 import "./Login.scss";
 
@@ -6,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ const Login = () => {
         const data = await response.json();
         localStorage.setItem("token", data.jwt);
         console.log("Login successful", data);
+        navigate("/home");
       } else {
         setError("Invalid email or password");
         console.error("Login failed", response);
@@ -65,7 +68,11 @@ const Login = () => {
                   </button>
                   {error && <p className="error-message">{error}</p>}
                   <a href="#">Forgot password?</a>
-                  <button className="btn-create-account">
+                  <button
+                    type="button"
+                    className="btn-create-account"
+                    onClick={() => navigate("/register")}
+                  >
                     Create new account
                   </button>
                 </form>
