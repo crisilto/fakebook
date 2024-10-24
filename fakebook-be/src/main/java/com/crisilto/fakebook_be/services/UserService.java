@@ -2,6 +2,7 @@ package com.crisilto.fakebook_be.services;
 
 import com.crisilto.fakebook_be.models.User;
 import com.crisilto.fakebook_be.repositories.UserRepository;
+import com.crisilto.fakebook_be.requests.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,18 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public boolean registerUser(RegisterRequest registerRequest) {
+        if(userRepository.findByEmail(registerRequest.getEmail()) != null){
+            return false; //Email already in use
+        }
+
+        String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
+
+        User newUser = new User(registerRequest.getEmail(), encodedPassword);
+        userRepository.save(newUser);
+        return true;
+    }
 
     public boolean authenticateUser(String email, String rawPassword) {
         User user = userRepository.findByEmail(email);
