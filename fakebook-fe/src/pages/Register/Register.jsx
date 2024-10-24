@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import BirthdaySelect from "./BirthdaySelect/BirthdaySelect";
 import ContactInput from "./ContactInput/ContactInput";
@@ -12,6 +13,7 @@ const Register = () => {
   const [gender, setGender] = useState("");
   const [mobileOrEmail, setMobileOrEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ const Register = () => {
 
       if (response.ok) {
         console.log("User registered successfull");
+        navigate("/login");
       } else {
         console.error("Error registering user");
       }
@@ -105,7 +108,7 @@ const Register = () => {
                 <button type="submit" className="btn-sign-up">
                   Sign Up
                 </button>
-                <a href="#">Already have an account?</a>
+                <a onClick={() => navigate("/login")}>Already have an account?</a>
               </div>
             </form>
           </div>
