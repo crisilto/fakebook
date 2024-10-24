@@ -1,6 +1,7 @@
 package com.crisilto.fakebook_be.controllers;
 
 import com.crisilto.fakebook_be.requests.LoginRequest;
+import com.crisilto.fakebook_be.requests.RegisterRequest;
 import com.crisilto.fakebook_be.security.JwtUtil;
 import com.crisilto.fakebook_be.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,17 @@ public class AuthController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+        boolean isRegistered = userService.registerUser(registerRequest);
+
+        if(isRegistered) {
+            return ResponseEntity.ok("User registered successfully");
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already in use");
+        }
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
