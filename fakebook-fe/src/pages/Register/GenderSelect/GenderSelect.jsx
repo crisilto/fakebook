@@ -25,6 +25,7 @@ const GenderSelect = () => {
       <label>Gender</label>
       <div className="gender-select">
         <label className="gender-option">
+          Female
           <input
             type="radio"
             name="gender"
@@ -32,10 +33,10 @@ const GenderSelect = () => {
             checked={gender === "female"}
             onChange={handleGenderChange}
           />
-          Female
         </label>
 
         <label className="gender-option">
+          Male
           <input
             type="radio"
             name="gender"
@@ -43,10 +44,10 @@ const GenderSelect = () => {
             checked={gender === "male"}
             onChange={handleGenderChange}
           />
-          Male
         </label>
 
         <label className="gender-option">
+          Custom
           <input
             type="radio"
             name="gender"
@@ -54,7 +55,6 @@ const GenderSelect = () => {
             checked={gender === "custom"}
             onChange={handleGenderChange}
           />
-          Custom
         </label>
       </div>
 
