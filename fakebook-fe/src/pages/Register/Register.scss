@@ -1,0 +1,212 @@
+.register-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F0F2F5;
+}
+
+div.register-container {
+    height: 80vh;
+}
+
+.register-title h1 {
+    font-size: 50px;
+    color: #0866FF;
+    text-align: center;
+    margin: 30px 0;
+}
+
+div.register-form {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 0px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 430px;
+    width: 100%;
+
+    .pre-form {
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            text-align: center;
+            color: #606770;
+            margin-bottom: 15px;
+        }
+
+        border-bottom: 1px solid grey;
+    }
+
+    form {
+        border-top: 10px;
+        padding: 20px;
+
+        .complete-name {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            input[type="text"],
+            input[type="password"] {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 10px;
+                border: 1px solid #dddfe2;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+        }
+
+        label {
+            font-size: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #dddfe2;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .birthday-select {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            margin: 5px 0px;
+
+            select {
+                width: 100%;
+                padding: 7px;
+                border: 1px solid #dddfe2;
+                border-radius: 5px;
+                font-size: 14px;
+                background-color: white;
+            }
+        }
+
+        .gender-select {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0px;
+            gap: 10px;
+
+            .gender-option {
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                border: 1px solid #dddfe2;
+                width: 100%;
+                border-radius: 5px;
+                background-color: white;
+                padding: 7px 10px;
+                position: relative;
+
+                input {
+                    width: 16px;
+                    margin-left: auto;
+                    margin-bottom: auto;
+                }
+            }
+        }
+
+        .pronoun-select {
+            margin-top: 13px;
+
+            select {
+                width: 100%;
+                padding: 7px 10px;
+                border: 1px solid #dddfe2;
+                border-radius: 5px;
+                font-size: 14px;
+                background-color: white;
+            }
+
+            input {
+                width: 100%;
+                margin-top: 10px;
+                padding: 10px;
+                border: 1px solid #dddfe2;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+
+            p {
+                font-size: 12px;
+                color: #606770;
+                margin: 7px 0px;
+            }
+        }
+
+        .additional-info {
+            p {
+                font-size: 11px;
+                color: #606770;
+                margin-top: 13px;
+            }
+
+            a {
+                color: #385898;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .bottom-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+
+            .btn-sign-up {
+                background-color: #1fb424;
+                color: white;
+                font-weight: bold;
+                padding: 6px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 45%;
+                font-size: 18px;
+                margin-top: 20px;
+            }
+
+            .btn-sign-up:hover {
+                background-color: #119F16;
+                color: #EAECEF;
+            }
+
+            a {
+                color: #1877f2;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.footer-container {
+    height: 20vh;
+    .languages ul li a,
+    .link-list ul li a,
+    .footer-copyright p,
+    .footer-copyright p a{
+        color: #385898;
+    }
+    .languages{
+        border-bottom: 1px solid #DDDFE2;
+    }
+}
