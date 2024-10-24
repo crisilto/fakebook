@@ -1,6 +1,7 @@
+import { PropTypes } from 'prop-types';
 import { useState } from "react";
 
-const ContactInput = () => {
+const ContactInput = ({setMobileOrEmail}) => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
 
@@ -13,8 +14,10 @@ const ContactInput = () => {
 
     if (emailRegex.test(value) || phoneRegex.test(value)) {
       setError("");
+      setMobileOrEmail(value);
     } else {
       setError("Please enter a valid email or phone number");
+      setMobileOrEmail("");
     }
   };
   return (
@@ -32,3 +35,7 @@ const ContactInput = () => {
 };
 
 export default ContactInput;
+
+ContactInput.propTypes = {
+  setMobileOrEmail: PropTypes.func.isRequired,
+};
