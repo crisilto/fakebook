@@ -1,7 +1,37 @@
+import { useState } from "react";
 import Footer from "./../../components/Footer/Footer";
 import "./Login.scss";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log("Logging in...");
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.jwt);
+        console.log("Login successful", data);
+      } else {
+        setError("Invalid email or password");
+        console.error("Login failed", response);
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error("Error during login:", err);
+    }
+  };
+
   return (
     <>
       <div className="login-page">
@@ -13,20 +43,27 @@ const Login = () => {
             </div>
             <div className="login-right">
               <div className="login-box">
-                <form className="login-form">
+                <form className="login-form" onSubmit={handleLogin}>
                   <input
                     type="text"
                     name="email"
                     id="email"
                     placeholder="Email or phone number"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <input
                     type="password"
                     name="password"
                     id="password"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
-                  <button className="btn-login">Log In</button>
+                  <button type="submit" className="btn-login">
+                    Log In
+                  </button>
+                  {error && <p className="error-message">{error}</p>}
                   <a href="#">Forgot password?</a>
                   <button className="btn-create-account">
                     Create new account
@@ -47,5 +84,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;
