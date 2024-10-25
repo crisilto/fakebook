@@ -8,14 +8,8 @@
 }
 
 .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  height: 75vh;
-  box-sizing: border-box;
   padding: 40px;
+  margin-top: 117px;
 }
 
 .login-container-content {
@@ -30,14 +24,14 @@
   margin-top: 40px;
 
   h1 {
-    font-size: 56px;
+    font-size: 54px;
     color: #0866FF;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
   p {
-    font-size: 26px;
+    font-size: 23px;
     padding-right: 6rem;
     color: #1c1e21;
   }

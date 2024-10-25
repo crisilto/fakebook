@@ -108,12 +108,14 @@ const Register = () => {
                 <button type="submit" className="btn-sign-up">
                   Sign Up
                 </button>
-                <a onClick={() => navigate("/login")}>Already have an account?</a>
+                <a onClick={() => navigate("/login")}>
+                  Already have an account?
+                </a>
               </div>
             </form>
           </div>
         </div>
-        <Footer />
+        <Footer className="footer-register" />
       </div>
     </>
   );

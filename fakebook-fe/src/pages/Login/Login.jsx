@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../components/Footer/Footer.scss";
 import Footer from "./../../components/Footer/Footer";
 import "./Login.scss";
 
@@ -86,7 +87,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <Footer />
+        <Footer className="footer-login" />
       </div>
     </>
   );
