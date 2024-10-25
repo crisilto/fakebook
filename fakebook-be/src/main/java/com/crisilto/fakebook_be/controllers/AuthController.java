@@ -1,7 +1,7 @@
 package com.crisilto.fakebook_be.controllers;
 
+import com.crisilto.fakebook_be.dto.LoginRequest;
 import com.crisilto.fakebook_be.dto.RegisterRequest;
-import com.crisilto.fakebook_be.requests.LoginRequest;
 import com.crisilto.fakebook_be.security.JwtUtil;
 import com.crisilto.fakebook_be.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +28,21 @@ public class AuthController {
         if(isRegistered) {
             return ResponseEntity.ok("User registered successfully");
         }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already in use");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email or phone number already in use");
         }
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        boolean isAuthenticated = userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
+        boolean isAuthenticated = userService.authenticateUser(loginRequest.getMobileOrEmail(), loginRequest.getPassword());
 
         if (isAuthenticated) {
-            UserDetails userDetails = userService.loadUserByUsername(loginRequest.getEmail());
+            UserDetails userDetails = userService.loadUserByUsername(loginRequest.getMobileOrEmail());
             String jwt = jwtUtil.generateToken(userDetails);
 
             return ResponseEntity.ok(new AuthenticationResponse(jwt));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid mobile/email or password");
         }
     }
 }
