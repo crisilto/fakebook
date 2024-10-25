@@ -115,8 +115,7 @@ div.register-form {
 
                 input {
                     width: 16px;
-                    margin-left: auto;
-                    margin-bottom: auto;
+                    margin: auto 0px auto auto
                 }
             }
         }
@@ -173,7 +172,7 @@ div.register-form {
             align-items: center;
 
             .btn-sign-up {
-                background-color: #1fb424;
+                background-color: #3ba726;
                 color: white;
                 font-weight: bold;
                 padding: 6px;
