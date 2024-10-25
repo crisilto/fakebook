@@ -2,58 +2,64 @@
   background-color: #FFFFFF;
   width: 100%;
   padding: 30px;
-  font-family: 'Helvetica', sans-serif;
   color: #8A8D91;
   font-size: 12px;
   text-align: left;
   flex-grow: 0;
-  height: 25%;
 
-  .languages {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #8A8D91;
+  .footer-content {
+    margin: 0 auto;
+    max-width: 1000px; 
+    text-align: left;
 
-    ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
+    .languages {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #8A8D91;
 
-      li {
-        margin: 0 8px;
+      ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
 
-        a {
-          text-decoration: none;
-          color: #8a8d91;
-        }
+        li {
+          margin: 0 8px;
 
-        a:hover {
-          text-decoration: underline;
+          a {
+            text-decoration: none;
+            color: #8a8d91;
+          }
+
+          a:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
-  }
 
-  .link-list {
-    margin-bottom: 20px;
+    .link-list {
+      margin-bottom: 20px;
 
-    ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
+      ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
 
-      li {
-        margin: 0 8px;
+        li {
+          margin: 0 8px;
 
-        a {
-          text-decoration: none;
-          color: #8a8d91;
-        }
+          a {
+            text-decoration: none;
+            color: #8a8d91;
+          }
 
-        a:hover {
-          text-decoration: underline;
+          a:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
@@ -74,6 +80,18 @@
       }
     }
   }
+
+  @media screen and (max-width: 768px) {
+    .footer-content {
+      max-width: 100%; 
+      padding: 0;
+    }
+
+    .languages ul,
+    .link-list ul {
+      justify-content: center; 
+    }
+  }
 }
 
 .footer-login.footer-container {
@@ -88,7 +106,7 @@
 .footer-register.footer-container {
   height: 20vh;
 
-  ul li a{
+  ul li a {
     color: #385898;
   }
 }
