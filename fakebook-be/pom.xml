@@ -97,6 +97,14 @@
 			<version>2.0.1.Final</version>
 		</dependency>
 
+		<!-- Dependency to use Servlet with Jakarta -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>5.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 
