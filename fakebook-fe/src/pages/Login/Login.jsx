@@ -5,7 +5,7 @@ import Footer from "./../../components/Footer/Footer";
 import "./Login.scss";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Login = () => {
       const response = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ contactInfo, password }),
       });
 
       if (response.ok) {
@@ -53,8 +53,8 @@ const Login = () => {
                     name="email"
                     id="email"
                     placeholder="Email or phone number"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={contactInfo}
+                    onChange={(e) => setContactInfo(e.target.value)}
                   />
                   <input
                     type="password"
