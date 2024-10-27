@@ -11,8 +11,9 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("");
-  const [mobileOrEmail, setMobileOrEmail] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -23,26 +24,32 @@ const Register = () => {
       lastName,
       birthday,
       gender,
-      mobileOrEmail,
+      contactInfo,
       password,
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/register", {
+      const response = await fetch("http://localhost:8080/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(newUser),
       });
 
+      const textResponse = await response.text(); 
+
       if (response.ok) {
-        console.log("User registered successfull");
+        console.log("User registered successfully");
         navigate("/login");
       } else {
-        console.error("Error registering user");
+        console.error("Error Response:", textResponse);
+        setErrorMessage(textResponse || "Error registering user");
       }
     } catch (err) {
+      setErrorMessage("An error occurred. Please try again later");
       console.error("Error:", err);
     }
   };
@@ -78,7 +85,7 @@ const Register = () => {
               </div>
               <BirthdaySelect onSelect={setBirthday} />
               <GenderSelect onSelect={setGender} />
-              <ContactInput setMobileOrEmail={setMobileOrEmail} />
+              <ContactInput setContactInfo={setContactInfo} />
               <input
                 type="password"
                 placeholder="New password"
@@ -86,6 +93,8 @@ const Register = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
 
               <div className="additional-info">
                 <p>
