@@ -23,7 +23,7 @@ public class RegisterRequest {
     private String pronoun;
 
     @NotNull(message = "You'll use this when you log in and if you ever need to reset your password.")
-    private String mobileOrEmail;
+    private String contactInfo;
 
     @NotNull(message = "Enter a combination of at least six numbers, letters and punctuation marks (like ! and &).")
     private String password;
