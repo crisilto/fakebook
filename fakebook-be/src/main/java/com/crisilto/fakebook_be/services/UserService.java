@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -18,23 +17,21 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^\\d{7,15}$");
 
     public boolean registerUser(RegisterRequest registerRequest) {
-        String mobileOrEmail = registerRequest.getMobileOrEmail();
+        String contactInfo = registerRequest.getContactInfo();
 
-        if(isEmail(mobileOrEmail)){
-            if(userRepository.findByEmail(mobileOrEmail) != null){
+        if(isEmail(contactInfo)){
+            if(userRepository.findByContactInfo(contactInfo) != null){
                 return false; //Email already in use
             }
-        }else if(isPhoneNumber(mobileOrEmail)){
-            if(userRepository.findByPhoneNumber(mobileOrEmail)!= null){
+        }else if(isPhoneNumber(contactInfo)){
+            if(userRepository.findByContactInfo(contactInfo)!= null){
                 return false; //Phone number already in use
             }
         }else{
@@ -49,7 +46,7 @@ public class UserService implements UserDetailsService {
                 registerRequest.getBirthday(),
                 registerRequest.getGender(),
                 registerRequest.getPronoun(),
-                mobileOrEmail,
+                contactInfo,
                 encodedPassword
         );
 
@@ -57,17 +54,21 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public boolean authenticateUser(String mobileOrEmail, String rawPassword) {
-        User user;
-        if(isEmail(mobileOrEmail)){
-            user = userRepository.findByEmail(mobileOrEmail);
-        }else if(isPhoneNumber(mobileOrEmail)){
-            user = userRepository.findByPhoneNumber(mobileOrEmail);
-        }else{
-            throw new IllegalArgumentException("Invalid email or phone number format");
+    public boolean authenticateUser(String contactInfo, String rawPassword) {
+        User user = userRepository.findByContactInfo(contactInfo);
+        if(user == null){
+            throw  new UsernameNotFoundException("User not found with mobile or email: " + contactInfo);
         }
+        return passwordEncoder.matches(rawPassword, user.getPassword());
+    }
 
-        return user != null && passwordEncoder.matches(rawPassword, user.getPassword());
+    @Override
+    public UserDetails loadUserByUsername(String contactInfo) throws UsernameNotFoundException {
+        User user = userRepository.findByContactInfo(contactInfo);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with mobileOrEmail: " + contactInfo);
+        }
+        return new org.springframework.security.core.userdetails.User(user.getContactInfo(), user.getPassword(), new ArrayList<>());
     }
 
     private boolean isEmail(String input){
@@ -76,18 +77,5 @@ public class UserService implements UserDetailsService {
 
     private boolean isPhoneNumber(String input){
         return PHONE_PATTERN.matcher(input).matches();
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String mobileOrEmail) throws UsernameNotFoundException {
-        User user;
-        if (isEmail(mobileOrEmail)) {
-            user = userRepository.findByEmail(mobileOrEmail);
-        } else if (isPhoneNumber(mobileOrEmail)) {
-            user = userRepository.findByPhoneNumber(mobileOrEmail);
-        } else {
-            throw new UsernameNotFoundException("User not found with mobileOrEmail: " + mobileOrEmail);
-        }
-        return new org.springframework.security.core.userdetails.User(user.getMobileOrEmail(), user.getPassword(), new ArrayList<>());
     }
 }
