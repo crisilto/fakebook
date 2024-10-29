@@ -1,8 +1,8 @@
-export const getYears = () => {
+export const getYears = (): number[] => {
     const currentYear = new Date().getFullYear();
     const minAge = 10;
     const maxAge = 100;
-    const years = [];
+    const years: number[] = [];
 
     for (let year = currentYear - minAge; year >= currentYear - maxAge; year--) {
         years.push(year);
@@ -11,17 +11,17 @@ export const getYears = () => {
     return years;
 };
 
-export const getMonths = () => [
+export const getMonths = (): string[] => [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
-export const getDays = (month) => {
+export const getDays = (month: number): number[] => {
     const daysInMonth = new Date(new Date().getFullYear(), month, 0).getDate();
     return Array.from({ length: daysInMonth }, (_, i) => i + 1);
 };
 
-export const calculateAge = (birthDate) => {
+export const calculateAge = (birthDate: string): number => {
     const today = new Date();
     const birth = new Date(birthDate);
 
@@ -33,4 +33,13 @@ export const calculateAge = (birthDate) => {
     }
 
     return age;
+};
+
+export const getCurrentDate = () => {
+    const today = new Date();
+    return {
+        currentDay: String(today.getDate()),
+        currentMonth: String(today.getMonth() + 1),
+        currentYear: String(today.getFullYear()),
+    };
 };

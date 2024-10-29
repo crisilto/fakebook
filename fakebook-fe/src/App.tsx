@@ -1,9 +1,10 @@
+import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.scss";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 
-function App() {
+const App: React.FC = () => {
   return (
     <Router>
       <Routes>
