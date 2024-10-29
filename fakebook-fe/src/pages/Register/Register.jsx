@@ -11,6 +11,7 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("");
+  const [pronoun, setPronoun] = useState("");
   const [contactInfo, setContactInfo] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,11 +20,29 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    if (
+      !firstName ||
+      !lastName ||
+      !birthday ||
+      !gender ||
+      !contactInfo ||
+      !password
+    ) {
+      setErrorMessage("Please fill in all required fields");
+      return;
+    }
+
+    if (gender === "custom" && !pronoun) {
+      setErrorMessage("Please select your pronoun");
+      return;
+    }
+
     const newUser = {
       firstName,
       lastName,
       birthday,
       gender,
+      pronoun: gender === "custom" ? pronoun : null,
       contactInfo,
       password,
     };
@@ -33,13 +52,13 @@ const Register = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
         credentials: "include",
         body: JSON.stringify(newUser),
       });
 
-      const textResponse = await response.text(); 
+      const textResponse = await response.text();
 
       if (response.ok) {
         console.log("User registered successfully", newUser);
@@ -83,8 +102,13 @@ const Register = () => {
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
-              <BirthdaySelect onSelect={setBirthday} />
-              <GenderSelect onSelect={setGender} />
+              <BirthdaySelect onSelect={(date) => setBirthday(date)} />
+              <GenderSelect
+                onSelect={({ gender, pronoun }) => {
+                  setGender(gender);
+                  setPronoun(pronoun);
+                }}
+              />
               <ContactInput setContactInfo={setContactInfo} />
               <input
                 type="password"
