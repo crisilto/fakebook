@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import PronounSelect from "./PronounSelect";
 
-const GenderSelect = () => {
+const GenderSelect = ({ onSelect }) => {
   const [gender, setGender] = useState("");
   const [showPronounSelect, setShowPronounSelect] = useState(false);
   const [selectedPronoun, setSelectedPronoun] = useState("");
@@ -11,6 +12,11 @@ const GenderSelect = () => {
     const selectedGender = e.target.value;
     setGender(selectedGender);
 
+    onSelect({
+      gender: selectedGender,
+      pronoun: selectedGender === "custom" ? selectedPronoun : null,
+    });
+
     if (selectedGender === "custom") {
       setShowPronounSelect(true);
     } else {
@@ -18,6 +24,14 @@ const GenderSelect = () => {
       setSelectedPronoun("");
       setCustomPronoun("");
     }
+  };
+
+  const handlePronounChange = (newPronoun) => {
+    setSelectedPronoun(newPronoun);
+    onSelect({
+      gender,
+      pronoun: newPronoun,
+    });
   };
 
   return (
@@ -62,7 +76,7 @@ const GenderSelect = () => {
         <>
           <PronounSelect
             selectedPronoun={selectedPronoun}
-            setSelectedPronoun={setSelectedPronoun}
+            setSelectedPronoun={handlePronounChange}
           />
           <input
             type="text"
@@ -77,3 +91,7 @@ const GenderSelect = () => {
 };
 
 export default GenderSelect;
+
+GenderSelect.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+};
