@@ -1,21 +1,24 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import PronounSelect from "./PronounSelect";
 
-const GenderSelect = ({ onSelect }) => {
-  const [selectedGender, setSelectedGender] = useState("");
-  const [showPronounSelect, setShowPronounSelect] = useState(false);
-  const [selectedPronoun, setSelectedPronoun] = useState("");
-  const [customGender, setCustomGender] = useState("");
+interface GenderSelectProps {
+  onSelect: (selection: { gender: string; pronoun: string | null }) => void;
+}
 
-  const updateParent = (gender, pronoun) => {
+const GenderSelect: React.FC<GenderSelectProps> = ({ onSelect }) => {
+  const [selectedGender, setSelectedGender] = useState<string>("");
+  const [showPronounSelect, setShowPronounSelect] = useState<boolean>(false);
+  const [selectedPronoun, setSelectedPronoun] = useState<string>("");
+  const [customGender, setCustomGender] = useState<string>("");
+
+  const updateParent = (gender: string, pronoun: string | null) => {
     onSelect({
       gender: gender,
       pronoun: pronoun,
     });
   };
 
-  const handleGenderChange = (e) => {
+  const handleGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const genderValue = e.target.value;
     setSelectedGender(genderValue);
     setShowPronounSelect(genderValue === "custom");
@@ -24,17 +27,17 @@ const GenderSelect = ({ onSelect }) => {
       setSelectedPronoun("");
       setCustomGender("");
       updateParent(genderValue, null);
-    } else if(selectedPronoun) {
+    } else if (selectedPronoun) {
       updateParent(customGender || "custom", selectedPronoun);
     }
   };
 
-  const handlePronounChange = (newPronoun) => {
+  const handlePronounChange = (newPronoun: string) => {
     setSelectedPronoun(newPronoun);
     updateParent(customGender || "custom", newPronoun);
   };
 
-  const handleCustomGenderChange = (e) => {
+  const handleCustomGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCustomGender(value);
     updateParent(value || "custom", selectedPronoun);
@@ -98,7 +101,3 @@ const GenderSelect = ({ onSelect }) => {
 };
 
 export default GenderSelect;
-
-GenderSelect.propTypes = {
-  onSelect: PropTypes.func.isRequired,
-};

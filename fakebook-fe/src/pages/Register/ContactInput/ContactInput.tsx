@@ -1,14 +1,17 @@
-import { PropTypes } from "prop-types";
 import { useState } from "react";
 
-const ContactInput = ({ setContactInfo }) => {
-  const [inputValue, setInputValue] = useState("");
-  const [error, setError] = useState("");
+interface ContactInputProps {
+  setContactInfo: (value: string) => void;
+}
+
+const ContactInput: React.FC<ContactInputProps> = ({ setContactInfo }) => {
+  const [inputValue, setInputValue] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[0-9]{7,15}$/;
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
 
@@ -36,7 +39,3 @@ const ContactInput = ({ setContactInfo }) => {
 };
 
 export default ContactInput;
-
-ContactInput.propTypes = {
-  setContactInfo: PropTypes.func.isRequired,
-};

@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../components/Footer/Footer.scss";
 import Footer from "./../../components/Footer/Footer";
 import "./Login.scss";
 
-const Login = () => {
-  const [contactInfo, setContactInfo] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const Login: React.FC = () => {
+  const [contactInfo, setContactInfo] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     console.log("Logging in...");
 
@@ -80,8 +80,7 @@ const Login = () => {
               </div>
               <div className="login-footer">
                 <p>
-                  <a href="#">Create a Page</a> for a celebrity, brand or
-                  business.
+                  <a href="#">Create a Page</a> for a celebrity, brand or business.
                 </p>
               </div>
             </div>
@@ -92,4 +91,5 @@ const Login = () => {
     </>
   );
 };
+
 export default Login;

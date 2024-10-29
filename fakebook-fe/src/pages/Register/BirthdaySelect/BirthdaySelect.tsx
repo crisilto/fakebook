@@ -1,25 +1,35 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import {
   calculateAge,
+  getCurrentDate,
   getDays,
   getMonths,
   getYears,
 } from "../../../utils/dateUtils";
 
-const BirthdaySelect = ({ onSelect }) => {
-  
-  const [selectedMonth, setSelectedMonth] = useState("1");
-  const [selectedDay, setSelectedDay] = useState("1");
-  const [selectedYear, setSelectedYear] = useState("2014");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [hasInteracted, setHasInteracted] = useState(false);
+interface BirthdaySelectProps {
+  onSelect: (date: string) => void;
+}
+
+const BirthdaySelect: React.FC<BirthdaySelectProps> = ({ onSelect }) => {
+  const { currentDay, currentMonth, currentYear } = getCurrentDate();
+
+  const [selectedMonth, setSelectedMonth] = useState<string>(currentMonth);
+  const [selectedDay, setSelectedDay] = useState<string>(currentDay);
+  const [selectedYear, setSelectedYear] = useState<string>(currentYear);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
   useEffect(() => {
     validateAndUpdateBirthday(selectedMonth, selectedDay, selectedYear, false);
-  });
+  }, [selectedMonth, selectedDay, selectedYear]);
 
-  const validateAndUpdateBirthday = (month, day, year, showError = true) => {
+  const validateAndUpdateBirthday = (
+    month: string,
+    day: string,
+    year: string,
+    showError: boolean = true
+  ) => {
     if (month && day && year) {
       const formattedMonth = String(month).padStart(2, "0");
       const formattedDay = String(day).padStart(2, "0");
@@ -32,30 +42,28 @@ const BirthdaySelect = ({ onSelect }) => {
         onSelect(dateString);
       } else {
         if (showError && hasInteracted) {
-          setErrorMessage(
-            "You must be between 10 and 100 years old to register."
-          );
+          setErrorMessage("You must be between 10 and 100 years old to register.");
         }
-        onSelect(showError ? "" : dateString); 
+        onSelect(showError ? "" : dateString);
       }
     }
   };
 
-  const handleMonthChange = (e) => {
+  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHasInteracted(true);
     const newMonth = e.target.value;
     setSelectedMonth(newMonth);
     validateAndUpdateBirthday(newMonth, selectedDay, selectedYear);
   };
 
-  const handleDayChange = (e) => {
+  const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHasInteracted(true);
     const newDay = e.target.value;
     setSelectedDay(newDay);
     validateAndUpdateBirthday(selectedMonth, newDay, selectedYear);
   };
 
-  const handleYearChange = (e) => {
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHasInteracted(true);
     const newYear = e.target.value;
     setSelectedYear(newYear);
@@ -75,7 +83,7 @@ const BirthdaySelect = ({ onSelect }) => {
         </select>
 
         <select value={selectedDay} onChange={handleDayChange}>
-          {getDays(selectedMonth).map((day) => (
+          {getDays(Number(selectedMonth)).map((day) => (
             <option key={day} value={day}>
               {day}
             </option>
@@ -96,7 +104,3 @@ const BirthdaySelect = ({ onSelect }) => {
 };
 
 export default BirthdaySelect;
-
-BirthdaySelect.propTypes = {
-  onSelect: PropTypes.func.isRequired,
-};

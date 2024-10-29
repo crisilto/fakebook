@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import BirthdaySelect from "./BirthdaySelect/BirthdaySelect";
@@ -6,18 +6,28 @@ import ContactInput from "./ContactInput/ContactInput";
 import GenderSelect from "./GenderSelect/GenderSelect";
 import "./Register.scss";
 
+interface NewUser {
+  firstName: string;
+  lastName: string;
+  birthday: string;
+  gender: string;
+  pronoun: string | null;
+  contactInfo: string;
+  password: string;
+}
+
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [gender, setGender] = useState("");
-  const [pronoun, setPronoun] = useState("");
-  const [contactInfo, setContactInfo] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [birthday, setBirthday] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [pronoun, setPronoun] = useState<string | null>(null);
+  const [contactInfo, setContactInfo] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
     if (
@@ -37,7 +47,7 @@ const Register = () => {
       return;
     }
 
-    const newUser = {
+    const newUser: NewUser = {
       firstName,
       lastName,
       birthday,
