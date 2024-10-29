@@ -1,7 +1,11 @@
-import PropTypes from "prop-types";
+import React from "react";
 import "./Footer.scss";
 
-const Footer = ({ className }) => {
+type FooterProps = {
+  className?: string;
+};
+
+const Footer: React.FC<FooterProps> = ({ className = "" }) => {
   return (
     <footer className={`footer-container ${className}`}>
       <div className="footer-content">
@@ -54,7 +58,3 @@ const Footer = ({ className }) => {
 };
 
 export default Footer;
-
-Footer.propTypes = {
-  className: PropTypes.string,
-};
