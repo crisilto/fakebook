@@ -3,35 +3,41 @@ import { useState } from "react";
 import PronounSelect from "./PronounSelect";
 
 const GenderSelect = ({ onSelect }) => {
-  const [gender, setGender] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
   const [showPronounSelect, setShowPronounSelect] = useState(false);
   const [selectedPronoun, setSelectedPronoun] = useState("");
-  const [customPronoun, setCustomPronoun] = useState("");
+  const [customGender, setCustomGender] = useState("");
+
+  const updateParent = (gender, pronoun) => {
+    onSelect({
+      gender: gender,
+      pronoun: pronoun,
+    });
+  };
 
   const handleGenderChange = (e) => {
-    const selectedGender = e.target.value;
-    setGender(selectedGender);
+    const genderValue = e.target.value;
+    setSelectedGender(genderValue);
+    setShowPronounSelect(genderValue === "custom");
 
-    onSelect({
-      gender: selectedGender,
-      pronoun: selectedGender === "custom" ? selectedPronoun : null,
-    });
-
-    if (selectedGender === "custom") {
-      setShowPronounSelect(true);
-    } else {
-      setShowPronounSelect(false);
+    if (genderValue !== "custom") {
       setSelectedPronoun("");
-      setCustomPronoun("");
+      setCustomGender("");
+      updateParent(genderValue, null);
+    } else if(selectedPronoun) {
+      updateParent(customGender || "custom", selectedPronoun);
     }
   };
 
   const handlePronounChange = (newPronoun) => {
     setSelectedPronoun(newPronoun);
-    onSelect({
-      gender,
-      pronoun: newPronoun,
-    });
+    updateParent(customGender || "custom", newPronoun);
+  };
+
+  const handleCustomGenderChange = (e) => {
+    const value = e.target.value;
+    setCustomGender(value);
+    updateParent(value || "custom", selectedPronoun);
   };
 
   return (
@@ -44,7 +50,7 @@ const GenderSelect = ({ onSelect }) => {
             type="radio"
             name="gender"
             value="female"
-            checked={gender === "female"}
+            checked={selectedGender === "female"}
             onChange={handleGenderChange}
           />
         </label>
@@ -55,7 +61,7 @@ const GenderSelect = ({ onSelect }) => {
             type="radio"
             name="gender"
             value="male"
-            checked={gender === "male"}
+            checked={selectedGender === "male"}
             onChange={handleGenderChange}
           />
         </label>
@@ -66,7 +72,7 @@ const GenderSelect = ({ onSelect }) => {
             type="radio"
             name="gender"
             value="custom"
-            checked={gender === "custom"}
+            checked={selectedGender === "custom"}
             onChange={handleGenderChange}
           />
         </label>
@@ -81,8 +87,9 @@ const GenderSelect = ({ onSelect }) => {
           <input
             type="text"
             placeholder="Gender (optional)"
-            value={customPronoun}
-            onChange={(e) => setCustomPronoun(e.target.value)}
+            value={customGender}
+            onChange={handleCustomGenderChange}
+            className="custom-gender-input"
           />
         </>
       )}
