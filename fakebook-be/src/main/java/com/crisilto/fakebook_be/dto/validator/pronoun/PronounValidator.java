@@ -13,7 +13,7 @@ public class PronounValidator implements ConstraintValidator<ValidPronoun, Regis
             return false;
         }
 
-        if("custom".equalsIgnoreCase(request.getGender())){
+        if(!"male".equalsIgnoreCase(request.getGender()) && !"female".equalsIgnoreCase(request.getGender())){
             return request.getPronoun() != null && !request.getPronoun().isEmpty();
         }
         return true;
