@@ -12,12 +12,9 @@ const ContactInput = ({ setContactInfo }) => {
     const value = e.target.value;
     setInputValue(value);
 
-    console.log("Input Value:", value); 
-
     if (emailRegex.test(value) || phoneRegex.test(value)) {
       setError("");
       setContactInfo(value);
-      console.log("Contact Info set:", value); 
     } else {
       setError("Please enter a valid email or phone number");
       setContactInfo("");

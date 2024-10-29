@@ -42,7 +42,7 @@ const Register = () => {
       const textResponse = await response.text(); 
 
       if (response.ok) {
-        console.log("User registered successfully");
+        console.log("User registered successfully", newUser);
         navigate("/login");
       } else {
         console.error("Error Response:", textResponse);
