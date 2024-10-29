@@ -7,11 +7,16 @@ const PronounSelect = ({ selectedPronoun, setSelectedPronoun }) => {
     { value: "they", label: 'They: "Wish them a happy birthday!"' },
   ];
 
+  const handlePronounChange = (e) => {
+    const value = e.target.value;
+    setSelectedPronoun(value);
+  };
+
   return (
     <div className="pronoun-select">
       <select
         value={selectedPronoun}
-        onChange={(e) => setSelectedPronoun(e.target.value)}
+        onChange={handlePronounChange}
       >
         <option value="">Select your pronoun</option>
         {pronouns.map((pronoun) => (
