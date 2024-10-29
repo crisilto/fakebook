@@ -32,7 +32,7 @@ const Register = () => {
       return;
     }
 
-    if (gender === "custom" && !pronoun) {
+    if (gender !== "male" && gender !== "female" && !pronoun) {
       setErrorMessage("Please select your pronoun");
       return;
     }
@@ -42,7 +42,7 @@ const Register = () => {
       lastName,
       birthday,
       gender,
-      pronoun: gender === "custom" ? pronoun : null,
+      pronoun: gender !== "male" && gender !== "female" ? pronoun : null,
       contactInfo,
       password,
     };
@@ -59,6 +59,7 @@ const Register = () => {
       });
 
       const textResponse = await response.text();
+      console.log("Server response:", textResponse);
 
       if (response.ok) {
         console.log("User registered successfully", newUser);
