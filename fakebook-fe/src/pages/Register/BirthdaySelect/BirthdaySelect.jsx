@@ -1,59 +1,65 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { getDays, getMonths, getYears } from "../../../utils/dateUtils";
+import {
+  calculateAge,
+  getDays,
+  getMonths,
+  getYears,
+} from "../../../utils/dateUtils";
 
 const BirthdaySelect = ({ onSelect }) => {
+  
   const [selectedMonth, setSelectedMonth] = useState("1");
   const [selectedDay, setSelectedDay] = useState("1");
-  const [selectedYear, setSelectedYear] = useState(
-    new Date().getFullYear().toString()
-  );
+  const [selectedYear, setSelectedYear] = useState("2014");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
-    updateBirthday(selectedMonth, selectedDay, selectedYear);
+    validateAndUpdateBirthday(selectedMonth, selectedDay, selectedYear, false);
   });
 
-  const updateBirthday = (month, day, year) => {
+  const validateAndUpdateBirthday = (month, day, year, showError = true) => {
     if (month && day && year) {
       const formattedMonth = String(month).padStart(2, "0");
       const formattedDay = String(day).padStart(2, "0");
       const dateString = `${year}-${formattedMonth}-${formattedDay}`;
 
-      const birthDate = new Date(dateString);
-      const today = new Date();
-      const age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
+      const age = calculateAge(dateString);
 
-      const adjustedAge =
-        monthDiff < 0 ||
-        (monthDiff === 0 && today.getDate() < birthDate.getDate())
-          ? age - 1
-          : age;
-
-      if (adjustedAge >= 10 && adjustedAge <= 100) {
+      if (age >= 10 && age <= 100) {
+        setErrorMessage("");
         onSelect(dateString);
       } else {
-        onSelect(""); 
+        if (showError && hasInteracted) {
+          setErrorMessage(
+            "You must be between 10 and 100 years old to register."
+          );
+        }
+        onSelect(showError ? "" : dateString); 
       }
     }
   };
 
   const handleMonthChange = (e) => {
+    setHasInteracted(true);
     const newMonth = e.target.value;
     setSelectedMonth(newMonth);
-    updateBirthday(newMonth, selectedDay, selectedYear);
+    validateAndUpdateBirthday(newMonth, selectedDay, selectedYear);
   };
 
   const handleDayChange = (e) => {
+    setHasInteracted(true);
     const newDay = e.target.value;
     setSelectedDay(newDay);
-    updateBirthday(selectedMonth, newDay, selectedYear);
+    validateAndUpdateBirthday(selectedMonth, newDay, selectedYear);
   };
 
   const handleYearChange = (e) => {
+    setHasInteracted(true);
     const newYear = e.target.value;
     setSelectedYear(newYear);
-    updateBirthday(selectedMonth, selectedDay, newYear);
+    validateAndUpdateBirthday(selectedMonth, selectedDay, newYear);
   };
 
   return (
@@ -84,6 +90,7 @@ const BirthdaySelect = ({ onSelect }) => {
           ))}
         </select>
       </div>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
