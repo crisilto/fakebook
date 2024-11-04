@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import {
-  calculateAge,
   getCurrentDate,
   getDays,
   getMonths,
   getYears,
+  isValidAge
 } from "../../../utils/dateUtils";
+import { ERROR_MESSAGES } from "../../../utils/errorMessages";
 
 interface BirthdaySelectProps {
   onSelect: (date: string) => void;
@@ -18,7 +19,6 @@ const BirthdaySelect: React.FC<BirthdaySelectProps> = ({ onSelect }) => {
   const [selectedDay, setSelectedDay] = useState<string>(currentDay);
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
   useEffect(() => {
     validateAndUpdateBirthday(selectedMonth, selectedDay, selectedYear, false);
@@ -35,36 +35,29 @@ const BirthdaySelect: React.FC<BirthdaySelectProps> = ({ onSelect }) => {
       const formattedDay = String(day).padStart(2, "0");
       const dateString = `${year}-${formattedMonth}-${formattedDay}`;
 
-      const age = calculateAge(dateString);
-
-      if (age >= 10 && age <= 100) {
+      if (isValidAge(dateString)) {
         setErrorMessage("");
         onSelect(dateString);
       } else {
-        if (showError && hasInteracted) {
-          setErrorMessage("You must be between 10 and 100 years old to register.");
-        }
-        onSelect(showError ? "" : dateString);
+        setErrorMessage(showError ? ERROR_MESSAGES.AGE_VALIDATION : "");
+        onSelect("");
       }
     }
   };
 
   const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setHasInteracted(true);
     const newMonth = e.target.value;
     setSelectedMonth(newMonth);
     validateAndUpdateBirthday(newMonth, selectedDay, selectedYear);
   };
 
   const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setHasInteracted(true);
     const newDay = e.target.value;
     setSelectedDay(newDay);
     validateAndUpdateBirthday(selectedMonth, newDay, selectedYear);
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setHasInteracted(true);
     const newYear = e.target.value;
     setSelectedYear(newYear);
     validateAndUpdateBirthday(selectedMonth, selectedDay, newYear);
