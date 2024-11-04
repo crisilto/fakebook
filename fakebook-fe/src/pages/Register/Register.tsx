@@ -1,6 +1,8 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
+import { isValidAge } from "../../utils/dateUtils";
+import { ERROR_MESSAGES } from "../../utils/errorMessages";
 import BirthdaySelect from "./BirthdaySelect/BirthdaySelect";
 import ContactInput from "./ContactInput/ContactInput";
 import GenderSelect from "./GenderSelect/GenderSelect";
@@ -29,7 +31,12 @@ const Register = () => {
 
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
-
+  
+    if (!isValidAge(birthday)) {
+      setErrorMessage(ERROR_MESSAGES.AGE_VALIDATION);
+      return;
+    }
+  
     if (
       !firstName ||
       !lastName ||
