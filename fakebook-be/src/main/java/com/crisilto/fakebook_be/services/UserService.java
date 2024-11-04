@@ -1,16 +1,18 @@
 package com.crisilto.fakebook_be.services;
 
-import com.crisilto.fakebook_be.models.User;
-import com.crisilto.fakebook_be.repositories.UserRepository;
-import com.crisilto.fakebook_be.dto.RegisterRequest;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.crisilto.fakebook_be.dto.RegisterRequest;
+import com.crisilto.fakebook_be.models.User;
+import com.crisilto.fakebook_be.repositories.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,11 +30,11 @@ public class UserService implements UserDetailsService {
 
         if(isEmail(contactInfo)){
             if(userRepository.findByContactInfo(contactInfo) != null){
-                return false; //Email already in use
+                return false; 
             }
         }else if(isPhoneNumber(contactInfo)){
             if(userRepository.findByContactInfo(contactInfo)!= null){
-                return false; //Phone number already in use
+                return false; 
             }
         }else{
             throw new IllegalArgumentException("Invalid email or phone number format");
