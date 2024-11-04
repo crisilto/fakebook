@@ -1,10 +1,9 @@
 export const getYears = (): number[] => {
     const currentYear = new Date().getFullYear();
-    const minAge = 10;
     const maxAge = 100;
     const years: number[] = [];
 
-    for (let year = currentYear - minAge; year >= currentYear - maxAge; year--) {
+    for (let year = currentYear; year >= currentYear - maxAge; year--) {
         years.push(year);
     }
 
@@ -42,4 +41,9 @@ export const getCurrentDate = () => {
         currentMonth: String(today.getMonth() + 1),
         currentYear: String(today.getFullYear()),
     };
+};
+
+export const isValidAge = (birthDate: string, minAge: number = 10, maxAge: number = 100): boolean => {
+    const age = calculateAge(birthDate);
+    return age >= minAge && age <= maxAge;
 };
