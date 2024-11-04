@@ -1,0 +1,6 @@
+{
+  "style": "compressed",
+  "sourceMap": true,
+  "loadPaths": ["node_modules"],
+  "quietDeps": true
+}
