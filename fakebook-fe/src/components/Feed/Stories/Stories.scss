@@ -1,0 +1,39 @@
+.stories-feed {
+    position: relative;
+    overflow-x: hidden;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  
+    .story-card {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      flex-shrink: 0;
+      scroll-behavior: smooth;
+    }
+  
+    .scroll-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+  
+      &.left {
+        left: 0;
+      }
+  
+      &.right {
+        right: 0;
+      }
+    }
+  }

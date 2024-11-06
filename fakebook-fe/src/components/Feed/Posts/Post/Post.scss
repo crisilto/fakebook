@@ -1,0 +1,39 @@
+.post-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.post-header-right {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.ellipsis-icon,
+.close-icon {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    img {
+        max-height: 250px;
+        max-width: 250px;
+    }
+}
