@@ -1,0 +1,63 @@
+.sidebar-right {
+    flex: 0.2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  
+    .sidebar-right-birthdays {
+      border-bottom: 1px solid #dddfe2;
+      padding-bottom: 10px;
+  
+      p,
+      ul li {
+        font-size: 14px;
+      }
+  
+      p {
+        font-weight: bold;
+      }
+    }
+  
+    .sidebar-right-contacts {
+      padding-top: 10px;
+  
+      p,
+      ul li {
+        font-size: 14px;
+      }
+  
+      p {
+        font-weight: bold;
+      }
+    }
+  
+    .sidebar-right-birthdays,
+    .sidebar-right-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  
+      p {
+        color: #1c1e21;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+  
+          .profile-picture {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
